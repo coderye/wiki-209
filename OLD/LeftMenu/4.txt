@@ -1,0 +1,22 @@
+!__目录__
+*[ACM / 算法学习|ACM]
+*[计算机体系结构]
+**[or1k]
+**[simulator]
+**[complier]
+
+\\
+|__Special Pages__
+||[Recent Changes]\\
+||[Search]\\
+||[Page Index]\\
+||[SystemInfo]\\
+
+\\
+|__Resources__
+||[OpenRISC官网|http://opencores.org/or1k/Main_Page]\\
+||[OpenRISC专栏|http://blog.csdn.net/column/details/openrisc.html]\\
+
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

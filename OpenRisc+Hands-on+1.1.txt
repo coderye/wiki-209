@@ -1,0 +1,37 @@
+!!![[实验目的]
+本实验完成OpenRisc开发环境的搭建
+
+!!![[实验步骤]
+#下载virtualbox镜像
+**[下载地址|http://opencores.org/or1k/Ubuntu_VirtualBox-image_updates_and_information]
+#用[or1ksim]跑HelloWorld
+    %%quote 
+    cd ~/soc-design/helloworld-or1ksim\\
+    sim -m8M helloworld --trace >or.trace\\
+    cat or.trace\\
+    /%
+
+    [hands-on.1.1.1.png]
+    
+    [hands-on.1.1.2.png]
+
+#用[or1ksim]跑linux
+    %%quote 
+    cd ~/soc-design/linux\\
+    make ARCH=openrisc defconfig\\
+    make ARCH=openrisc\\
+    sim -f arch/openrisc/or1ksim.cfg vmlinux
+    /%
+    
+    [hands-on.1.1.3.png]
+    
+    [hands-on.1.1.4.png]
+    
+#RTL仿真
+    %%quote 
+    cd soc-design/orpsocv2/sim/run\\
+    make rtl-test TEST=or1200-cbasic VCD=1\\
+    gtkwave ../out/or1200-cbasic.vcd ../../../../signal.sav &\\
+    /%
+    
+    [hands-on.1.1.5.png]

@@ -1,0 +1,21 @@
+__目录__\\
+
+[ACM / 算法学习|ACM]\\
+[计算机体系结构]\\
+
+\\
+__Special Pages__\\
+
+[Recent Changes]\\
+[Search]\\
+[Page Index]\\
+[SystemInfo]\\
+
+\\
+__Resources__\\
+
+[同济大学|http://www.tongji.edu.cn]
+
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

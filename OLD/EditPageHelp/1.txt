@@ -1,0 +1,45 @@
+A list of the most common formatting rules. There also is a complete list at [TextFormattingRules].
+{{{
+(empty line)     Make a paragraph break. 
+----             Horizontal ruler
+[link]           Create hyperlink to "link", where "link" can be either an internal 
+                 WikiName or an external link (http://)
+[text|link]      Create a hyperlink where the link text is different from the actual 
+                 hyperlink link.
+[link#heading]   Jumps to that heading on the page.  The heading here needs to be 
+                 written in CamelCase.
+[text|wiki:link] Create a hyperlink where the link text is different from the 
+                 actual hyperlink link, and the hyperlink points to a named Wiki. 
+                 This supports interWiki linking.
+
+*                Make a bulleted list (must be in first column). Use more (**)
+                 for deeper indentations.
+#                Make a numbered list (must be in first column). Use more (##, ###) 
+                 for deeper indentations.
+
+!, !!, !!!       Start a line with an exclamation mark (!) to make a heading. 
+                 More exclamation marks mean bigger headings.
+
+__text__         Makes text bold.
+''text''         Makes text in italics (notice that these are single quotes ('))
+{{text}}         Makes text in monospaced font.
+;term:def        Defines 'term' with 'def'.  Use this with empty 'term' to 
+                  make short comments.
+\\               Forced line break (please use sparingly).
+
+
+}}}              
+
+Don't use HTML, it doesn't work.
+
+If you want to use images on your page, simply use a wikilink, like ~[myImage.png~], save the page, and attache the image to the page (of cours with the exact same page).
+You can find the list of approved formats, on the [SystemInfo] page.
+
+To make a code block, use triple {'s to open, and triple }'s to close.
+
+If you want to use square brackets ({{[[]}}) in the page without creating a hyperlink, use two opening square brackets. So the text {{[[[Example Non-Link]}}, will appear as {{[[Example Non-Link]}}.
+
+''(Wondering where this text comes from?  It's on a page called [Edit Page Help], which you can edit too!)''
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

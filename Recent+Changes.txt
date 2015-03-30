@@ -1,0 +1,10 @@
+These are changes made to pages during the last 60 days.  Check the [FullRecentChanges] for a complete list of all changed pages.
+
+This server lives on [{INSERT CurrentTimePlugin format=zzzz}] and the time here is [{INSERT CurrentTimePlugin format='HH:mm \'on\' yyyy年M月d日'}].
+
+[{INSERT RecentChangesPlugin since=60}]
+
+[{PageViewPlugin}]
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

@@ -1,0 +1,14 @@
+\\
+__Referenced by__\\
+
+[{ReferringPagesPlugin max=20, maxwidth=50}]
+\\
+%%(font-size:80%)
+|Active Sessions|[{SessionsPlugin}]
+|Uptime|[{$uptime}]
+|Number of pages|[{$totalpages}]
+%%
+
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

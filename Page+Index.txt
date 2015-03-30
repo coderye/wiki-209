@@ -1,0 +1,6 @@
+[{INSERT IndexPlugin}]
+
+[{PageViewPlugin}]
+
+[{ALLOW edit Admin}]
+[{ALLOW view All}]

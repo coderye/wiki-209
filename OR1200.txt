@@ -1,0 +1,12 @@
+!!!官网
+*[or1k|http://opencores.org/or1k/Main_Page]
+*[体系结构规范|openrisc/openrisc-arch-1.1-rev0.pdf]
+
+!!!动手实验
+#[开发环境搭建|OpenRisc Hands-on 1.1]
+#[OR1200硬件环境搭建|OpenRisc Hands-on 1.2]
+#[OR1200运行第一个程序|OpenRisc Hands-on 1.3]
+#[完善OR1200的SoC|OpenRisc Hands-on 1.4]
+
+!!!ORSOC
+*[debug the or1200|http://www.rte.se/blog/blogg-modesty-corex/debugging-openrisc-1200/2.13]

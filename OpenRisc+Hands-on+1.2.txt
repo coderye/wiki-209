@@ -1,0 +1,5 @@
+!!![[实验目的]
+OR1200硬件环境搭建
+
+!!![[实验步骤]
+[参考|http://blog.csdn.net/rill_zhen/article/details/8704523]

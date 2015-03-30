@@ -1,0 +1,5 @@
+!!![[实验目的]
+本实验完成第一个OR1200运行的裸机程序
+
+!!![[实验步骤]
+[参考|http://blog.csdn.net/rill_zhen/article/details/8704702]
