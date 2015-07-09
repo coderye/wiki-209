@@ -5,7 +5,7 @@
 \\
 *[System Architecture|Computer Architecture]
 \\
-*[Toolchain 编译链|Toolchain]
+*[Toolchain编译链|Toolchain]
 \\
 *...
 

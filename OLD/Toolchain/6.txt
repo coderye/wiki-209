@@ -1,0 +1,23 @@
+!概述
+OpenRISC 平台拥有其对应的[Toolchain（工具链）|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]，[GNU toolchain|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]和[LLVM toolchain|http://opencores.org/or1k/LLVM]，其中 GNU 工具链可以下载已经预编译好的二进制包。
+
+但当二进制包不兼容，或者选用 LLVM 时，则需要手动编译 Toolchain。常见的 Toolchain 编译过程需要确定三个参数：build, host 和 target。build 确定了当下的编译过程选用的工具链，host 确定了编译出来的 Toolchain 将运行在哪个平台上，而 target 则确定了编译出来的 Toolchain 所编译的可执行文件能够运行在哪个平台上。
+
+
+!Toolchain 及其选择
+!!gcc
+!!llvm
+
+!Makefile 及其他项目管理工具
+
+!编译过程
+
+!链接过程
+
+!交叉编译
+
+!linux/gcc/glibc 构建过程
+
+
+----
+[施文华|shiwenhua]

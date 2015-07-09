@@ -5,11 +5,6 @@ __推荐阅读__：\\
 **CMU [ICS|http://www.cs.cmu.edu/~213/] "Introduction to Computer Systems"
 **FDU [ICS|http://ics.fudan.edu.cn/] 复旦大学软件学院 "计算机系统基础"
 **Coursera [hwswinterface|https://www.coursera.org/course/hwswinterface]
-
     
-*《Computer Architecture：A Quantitative Approach》简称CAAQA（中文书籍：计算机体系结构：量化研究方法）
-**UC Berkeley [cs152|http://www-inst.eecs.berkeley.edu/~cs152] "Computer Architecture and Engineering"
-
-
-*《Computer Organization and Design:The Hardware/Software Interface》简称COD（中文书籍：计算机组成与设计：硬件、软件接口）
-**UC Berkeley [cs61c|http://www-inst.eecs.berkeley.edu/~cs61c/] "Great Ideas of Computer Architecture"(Formerly "Machine Structure")
+*《Computer Architecture：A Quantitative Approach》简称[CAAQA]（中文书籍：计算机体系结构：量化研究方法）
+**Berkeley [cs152|http://www-inst.eecs.berkeley.edu/~cs152] "Computer Architecture and Engineering"

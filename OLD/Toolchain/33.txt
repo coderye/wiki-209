@@ -1,0 +1,176 @@
+[{TableOfContents }]
+
+!!!1. 概述
+OpenRISC 平台拥有其对应的[Toolchain（工具链）|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]，[GNU toolchain|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]和[LLVM toolchain|http://opencores.org/or1k/LLVM]，其中 GNU 工具链可以下载已经预编译好的二进制包。
+
+但当二进制包不兼容，或者选用 LLVM 时，则需要手动编译 Toolchain。常见的 Toolchain 编译过程需要确定三个参数：build, host 和 target。build 确定了当下的编译过程选用的工具链，host 确定了编译出来的 Toolchain 将运行在哪个平台上，而 target 则确定了编译出来的 Toolchain 所编译的可执行文件能够运行在哪个平台上。
+
+由于在编译 Toolchain 时，还没有对应平台的 libc（C 库，编译后与 Linux-kernel 版本绑定），所以 CC（C Compiler，C 编译器）既不能正常的完成 Link 链接过程，又因为缺少 libc 而导致其中的很多模块无法被编译。因而一个完整的 Linux 平台下的 Toolchain 在编译时主要分为以下几个步骤：
+
+;（1）bootstrap C compiler:几乎只能用来编译 libc
+;（2）libc:有了初始的 CC 之后就可以编译 libc 了
+;（3）C compiler:最后编译完整的工具链
+
+下文以 debian-8.1.0-amd64-i386-netinst.iso 中的 Debian x64 为 build 平台。由于 OpenRISC 官方推荐使用 Newlib 作为其平台的 libc，因而在下文中将略过对于 uclibc 和 musl 这两个 libc 的介绍。
+
+!!!2. Toolchain 及其编译
+!!2.1 GNU toolchain
+GNU Toolchain 需要 build 平台的工具链，并需要 3 份主要的源码包：binutils，newlib 和 gcc，以及 gcc 依赖的数学库 gmp，mpc 和 mpfr。在这里，我们选用 llvm 当作 build 的 CC，因为其错误提示更加友善。
+!2.1.1 安装 build 的 build-essential，make，和 llvm
+%%prettify 
+{{{
+sudo apt-get install build-essential make llvm clang git unzip
+}}}
+/%
+!2.1.2 设定相关环境变量
+%%prettify 
+{{{
+cat >> ~/.bashrc <<EOF
+export PREFIX=/opt/or1k-elf
+export PATH=\$PATH:\$PREFIX/bin
+export CC=clang
+export CXX=clang++
+export CFLAGS=-I\%$PREFIX/include
+export LDFLAGS=-L\$PREFIX/lib
+EOF
+}}}
+/%
+这里我们使用 CC=clang 来确定我们使用的 CC，CXX类似
+%%prettify 
+{{{
+source .bashrc
+}}}
+/%
+这里的 PREFIX 确定了接下来一系列编译结果将存放到哪个文件夹。
+!2.1.3 构建目录，下载源码包
+%%prettify 
+{{{
+sudo mkdir /opt/or1k-elf
+sudo chown $(whoami):$(whoami) /opt/or1k-elf
+}}}
+/%
+%%prettify 
+{{{
+mkdir ~/workspace && cd ~/workspace
+wget http://ftp.gnu.org/gnu/binutils/binutils-2.25.tar.gz
+wget https://codeload.github.com/openrisc/or1k-gcc/zip/or1k
+mv or1k or1k.zip
+wget ftp://sourceware.org/pub/newlib/newlib-2.2.0.20150423.tar.gz
+wget http://www.mpfr.org/mpfr-current/mpfr-3.1.3.tar.gz
+wget http://ftp.gnu.org/gnu/gmp/gmp-6.0.0a.tar.bz2
+wget ftp://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
+wget http://ftp.gnu.org/gnu/bison/bison-3.0.4.tar.gz
+wget http://nchc.dl.sourceforge.net/project/flex/flex-2.5.39.tar.gz
+}}}
+/%
+!2.1.4 解压各个源码包
+%%prettify 
+{{{
+tar xvf binutils-2.25.tar.gz
+tar xvf mpc-1.0.3.tar.gz
+tar xvf mpfr-3.1.3.tar.gz
+tar xvf gmp-6.0.0a.tar.bz2
+tar xvf newlib-2.2.0.20150423.tar.gz
+tar xvf bison-3.0.4.tar.gz
+tar xvf flex-2.5.39.tar.gz
+unzip or1k.zip
+}}}
+/%
+!2.1.5 编译 binutils, gmp, mpc, mpfr, bison, flex
+%%prettify 
+{{{
+mkdir build-binutils; cd build-binutils
+../binutils-2.25/configure --target=or1k-elf --prefix=$PREFIX --enable-shared \
+--disable-itcl --disable-tk --disable-tcl --disable-winsup --disable-gdbtk \
+--disable-libgui --disable-rda --disable-sid --disable-sim --with-sysroot
+make -j8
+make install
+cd ..
+
+cd bison-3.0.4
+./configure --prefix=$PREFIX
+make -j8
+make install
+cd ..
+
+cd flex-2.5.39
+./configure --prefix=$PREFIX
+make -j8
+make install
+cd ..
+
+cd gmp-6.0.0
+./configure --prefix=$PREFIX
+make -j8
+make install
+cd ..
+
+cd mpfr-3.1.3
+./configure --prefix=$PREFIX --with-gmp-include=$PREFIX/include --with-gmp-lib=$PREFIX/lib
+make -j8
+make install
+cd ..
+
+cd mpc-1.0.3
+./configure --prefix=$PREFIX --with-gmp-include=$PREFIX/include --with-gmp-lib=$PREFIX/lib
+make -j8
+make install
+cd ..
+
+}}}
+/%
+在 make 时使用 -j8 表示使用 8 个线程进行同时编译。
+!2.1.6 Bootstrap GCC
+%%prettify 
+{{{
+mkdir build-gcc-stage1; cd build-gcc-stage1
+../or1k-gcc-or1k/configure --target=or1k-elf --prefix=$PREFIX --enable-languages=c --disable-shared --disable-libssp
+make -j8
+make install
+cd ..
+}}}
+/%
+如果遇到类似以下的错误：
+%%prettify 
+{{{
+checking for flex... /home/march/workspace/build-gcc-stage1/build-x86_64-unknown-linux-gnu/flex/flex
+checking lex output file root... configure: error: cannot find output from /home/march/workspace/build-gcc-stage1/build-x86_64-unknown-linux-gnu/flex/flex; giving up
+Makefile:5088: recipe for target 'configure-gmp' failed
+}}}
+/%
+可以尝试
+%%prettify 
+{{{
+mkdir build-x86_64-unknown-linux-gnu/flex && cd build-x86_64-unknown-linux-gnu/flex
+CC=clang ../../../or1k-gcc-or1k/flex/configure --prefix=$PREFIX
+make -j8
+cd ../..
+make -j8
+make install
+}}}
+/%
+!2.1.7 newlib
+%%prettify 
+{{{
+mkdir build-newlib; cd build-newlib
+CC=clang ../newlib-2.2.0.20150423/configure --target=or1k-elf --prefix=$PREFIX
+make -j8
+make install
+cd ..
+}}}
+/%
+
+
+
+
+!!2.2 LLVM toolchain
+
+
+!!!3. Makefile 及其他项目管理工具
+
+
+!!!4. Linux 构建过程
+
+
+----
+[施文华|shiwenhua]

@@ -5,9 +5,8 @@
 \\
 *[System Architecture|Computer Architecture]
 \\
-*[Toolchain 编译链|Toolchain]
-\\
 *...
 
 [{ALLOW edit Admin}]
 [{ALLOW view All}]
+

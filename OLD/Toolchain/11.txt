@@ -1,0 +1,37 @@
+[{TableOfContents }]
+
+!!!1. 概述
+OpenRISC 平台拥有其对应的[Toolchain（工具链）|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]，[GNU toolchain|http://opencores.org/or1k/OpenRISC_GNU_tool_chain]和[LLVM toolchain|http://opencores.org/or1k/LLVM]，其中 GNU 工具链可以下载已经预编译好的二进制包。
+
+但当二进制包不兼容，或者选用 LLVM 时，则需要手动编译 Toolchain。常见的 Toolchain 编译过程需要确定三个参数：build, host 和 target。build 确定了当下的编译过程选用的工具链，host 确定了编译出来的 Toolchain 将运行在哪个平台上，而 target 则确定了编译出来的 Toolchain 所编译的可执行文件能够运行在哪个平台上。
+
+由于在编译 Toolchain 时，还没有对应平台的 libc（C 库，编译后与 Linux-kernel 版本绑定），所以 CC 既不能正常的完成 Link 链接过程，又因为缺少 libc 而导致其中的很多模块无法被编译。因而一个完整的 Linux 平台下的 Toolchain 在编译时主要分为以下几个步骤：
+
+;（1）bootstrap C compiler:几乎只能用来编译 libc
+;（2）libc:有了初始的 CC 之后就可以编译 libc 了
+;（3）C compiler:最后编译完整的工具链
+
+下文以 debian-8.1.0-amd64-i386-netinst.iso 中的 Debian x64 为 build 平台。由于 OpenRISC 官方推荐使用 Newlib 作为其平台的 libc，因而在下文中将略过对于 uclibc 和 musl 这两个 libc 的介绍。
+
+!!!2. Toolchain 及其编译
+!!2.1 GNU toolchain
+GNU Toolchain 需要 build 平台的工具链，并需要 3 份主要的源码包：binutils，newlib 和 gcc，以及 gcc 依赖的数学库 gmp，mpc 和 mpfr。在这里，我们选用 llvm 当作 build 的 CC，因为其错误提示更加友善。
+!2.1.1 安装 build 的 build-essential，make，和 llvm
+%%prettify 
+{{{
+sudo apt-get install build-essential make llvm
+}}}
+/%
+!2.2.2 下载源码包，整理目录
+
+!!2.2 LLVM toolchain
+
+
+!!!3. Makefile 及其他项目管理工具
+
+
+!!!4. Linux 构建过程
+
+
+----
+[施文华|shiwenhua]
